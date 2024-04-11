@@ -16,7 +16,6 @@ function AccountOperations() {
     loanReason: reason,
     isLoading,
   } = useSelector((store) => store.account);
-  console.log(currentBalance);
 
   function handleDeposit() {
     if (!depositAmount) return;
@@ -27,6 +26,12 @@ function AccountOperations() {
 
   function handleWithdrawal() {
     if (!withdrawalAmount) return;
+
+    if (currentBalance < withdrawalAmount) {
+      alert("You don't have enough money to withdraw this amount.");
+      return;
+    }
+
     dispatch(withdraw(withdrawalAmount));
     setWithdrawalAmount("");
   }
